@@ -1,6 +1,6 @@
 # Proceso
 ### Funcionalidades nuevas
-- 
+- Se inicializa proyecto en producción
 
 ### Solución a problemas
 - 
