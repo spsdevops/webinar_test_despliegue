@@ -1,6 +1,6 @@
 # Proceso
 ### Funcionalidades nuevas
-- Se inicializa proyecto en producción
+- Se modifica el mensaje de respuesta a version 3
 
 ### Solución a problemas
 - 
