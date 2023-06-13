@@ -21,8 +21,8 @@ jobs:
       - if: ${{ github.event.inputs.ambiente == 'develop'}}
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::${{secrets.DEV_AWS_ACCOUNT_ID}}:role/Nombre del rol de despliegue. DEV
-          role-session-name: Nombre del rol de despliegue. DEV
+          role-to-assume: arn:aws:iam::${{secrets.DEV_AWS_ACCOUNT_ID}}:role/webinar_rol_despliegue
+          role-session-name: webinar_rol_despliegue
           aws-region: us-east-1
 
       - uses: actions/checkout@v2
