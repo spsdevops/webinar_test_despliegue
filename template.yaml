@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  helloworld
+
+  Sample SAM Template for helloworld
+
+Parameters:
+  EnvName:
+    Type: String
+    Default: dev
+    Description: Selecciona el nombre ambiente que quieres desplegar
+  DBEnvName:
+    Type: String
+    Default: dev
+    Description: Valor de sufijo para tablas de base de datos
+  ParametersKMSARN:
+    Description: ARN de la llave que descifra los secretos
+    Type: String
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref EnvName
+      Name: sps-apigateway
+
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello_world/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /hello
+            Method: get
+      Environment:
+        Variables:
+          TABLA_EJEMPLO: !Sub sps-tabla-ejemplo-${DBEnvName}      
+      Policies: # https://aws.amazon.com/es/premiumsupport/knowledge-center/lambda-sam-template-permissions/
+      # Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        - AmazonS3ReadOnlyAccess # Managed Policy
+        - SSMParameterReadPolicy: # SAM Policy https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
+            ParameterName: !Sub sps-plantilla-parametro-${EnvName}
+        - DynamoDBCrudPolicy:
+            TableName: !Sub sps-catalogo-ejemplo-${DBEnvName}
+        - Statement: # Inline policy
+            - Sid: KMSDescifrar
+              Effect: Allow
+              Action:
+                - 'kms:Decrypt'
+              Resource: !Ref ParametersKMSARN
+        - Statement: # Inline policy
+            - Sid: KMSCifrar
+              Effect: Allow
+              Action:
+                - 'kms:Encrypt'
+              Resource: !Ref ParametersKMSARN

@@ -1,0 +1,71 @@
+name: manual_rollback-dynamodb
+
+on:
+  workflow_dispatch:
+    inputs:
+      ambiente:
+        description: Ambiente al cual se hará rollback de DynamoDB
+        required: true
+        type: choice
+        options:
+          - 'develop'
+          - 'production'
+
+jobs:
+  ################ DEVELOP #######################
+  DevRollbackDynamoDB:
+    if: ${{ github.event.inputs.ambiente == 'develop'}}
+    runs-on: ubuntu-20.04
+    environment: develop
+    steps:
+      - if: ${{ github.event.inputs.ambiente == 'develop'}}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.DEV_AWS_ACCOUNT_ID}}:role/Nombre del rol de despliegue. DEV
+          role-session-name: Nombre del rol de despliegue. DEV
+          aws-region: us-east-1
+
+      - uses: actions/checkout@v2
+      # Imprimir variables
+      - name: "Imprimir variables de referencia"
+        run: |
+          echo "Head Ref - $GITHUB_HEAD_REF"
+          echo "Branch -  $GITHUB_REF"
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: "Rollback tablas Dynamo"
+        run: |
+          pip install boto3
+          python3 rollback-dynamo.py -a dev -r us-east-1 -rdr us-west-2
+
+  ################ PRODUCTION #######################
+  ProdRollbackDynamoDB:
+    if: ${{github.event.inputs.ambiente == 'production'}}
+    runs-on: ubuntu-20.04
+    environment: production
+    steps:
+      # Credenciales de producción
+      - if: ${{ github.event.inputs.ambiente == 'production' }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{secrets.PROD_AWS_ACCOUNT_ID}}:role/webinar_rol_despliegue
+          role-session-name: webinar_rol_despliegue
+          aws-region: us-east-1
+
+      - uses: actions/checkout@v2
+      # Imprimir variables
+      - name: "Imprimir variables de referencia"
+        run: |
+          echo "Head Ref - $GITHUB_HEAD_REF"
+          echo "Branch -  $GITHUB_REF"
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: "Rollback tablas Dynamo"
+        run: |
+          pip install boto3
+          python3 rollback-dynamo.py -a prod -r us-east-1 -rdr us-west-2
+permissions:
+  id-token: write
+  contents: read

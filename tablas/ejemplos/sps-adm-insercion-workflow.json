@@ -1,0 +1,83 @@
+{"Actualizaciones": [{
+  "ID": {
+    "S": "int-afore-sec-custom-mtm-chklst"
+  },
+  "API": {
+    "L": []
+  },
+  "NEGOCIO": {
+    "S": "NEGOCIO2"
+  },
+  "ARCHIVOS": {
+    "L": [
+      {
+        "M": {
+          "FECHA": {
+            "S": "2022-03-30T18:00:46"
+          },
+          "IS_RECIBIDO": {
+            "BOOL": false
+          },
+          "NOMBRE": {
+            "S": "NOMBRE_ARCHIVO"
+          },
+          "REGEX": {
+            "M": {
+              "FECHA": {
+                "S": "DUMMY"
+              },
+              "TIPO": {
+                "S": "TODO"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "INTERFAZ": {
+    "S": "PRUEBA PUT ITEM TODO"
+  }
+},
+{
+  "ID": {
+    "S": "SEGUNDOID"
+  },
+  "API": {
+    "L": []
+  },
+  "NEGOCIO": {
+    "S": "SPS"
+  },
+  "ARCHIVOS": {
+    "L": [
+      {
+        "M": {
+          "FECHA": {
+            "S": "2022-03-30T18:00:46"
+          },
+          "IS_RECIBIDO": {
+            "BOOL": false
+          },
+          "NOMBRE": {
+            "S": "PRI01_2VD"
+          },
+          "REGEX": {
+            "M": {
+              "FECHA": {
+                "S": "NOMBRE_ARCHIVO"
+              },
+              "TIPO": {
+                "S": "TODO"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "INTERFAZ": {
+    "S": "Prueba tabla global. Verificar en Oregon"
+  }
+}],
+"Eliminaciones": []}
