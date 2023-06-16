@@ -50,6 +50,8 @@ jobs:
           git checkout main pfg-sam.json
           git checkout main parameters-develop.json
           git checkout main parameters-dev-dr.json
+          git checkout main parameters-preprod.json
+          git checkout main parameters-pre-dr.json
           git checkout main parameters-prod-dr.json
           git checkout main parameters-production.json
           git checkout main dynamo.py
