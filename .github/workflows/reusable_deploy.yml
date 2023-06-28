@@ -153,7 +153,7 @@ jobs:
       # para no mostrarlas en los logs.
       # Credenciales de desarrollo
       - if: ${{ inputs.ambiente == 'develop'}}
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::${{secrets.DEV_AWS_ACCOUNT_ID}}:role/webinar_rol_despliegue
           role-session-name: webinar_rol_despliegue
