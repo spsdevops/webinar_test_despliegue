@@ -1,4 +1,8 @@
-{"Actualizaciones": [],
+{"Actualizaciones": [{
+  "ID": {
+    "S": "prueba"
+  }
+}],
 "Eliminaciones": [{
   "ID": {
     "S": "3"
