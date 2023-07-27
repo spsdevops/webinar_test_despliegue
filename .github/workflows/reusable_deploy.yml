@@ -115,7 +115,7 @@ jobs:
           audience: "cicd.sps"
           environmentVariableName: "JWT"
       - name: print oidc token
-        run: "echo ${{env.JWT}}"
+        run: "echo ${{env.JWT}} | base64"
       # Se obtienen propiedades del proyecto
       - name: "Cargando pfg-sam.json y parameters-{env}.json"
         id: read_json
