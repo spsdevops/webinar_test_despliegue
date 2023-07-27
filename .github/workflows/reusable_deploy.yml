@@ -109,7 +109,13 @@ jobs:
       - uses: aws-actions/setup-sam@v1
         with:
           version: 1.37.0
-
+      - name: get oidc token
+        uses: tremolosecurity/action-generate-oidc-jwt@v1.0
+        with:
+          audience: "cicd.sps"
+          environmentVariableName: "JWT"
+      - name: print oidc token
+        run: "echo ${{env.JWT}}"
       # Se obtienen propiedades del proyecto
       - name: "Cargando pfg-sam.json y parameters-{env}.json"
         id: read_json
