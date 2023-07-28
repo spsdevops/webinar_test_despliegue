@@ -5,6 +5,6 @@
   },
   {
     "ParameterKey": "ParametersKMSARN",
-    "ParameterValue": "arn:aws:kms:us-west-2:494098342225:key/mrk-2eb6712686b54f3aa8324124acc28905"
+    "ParameterValue": "arn:aws:kms:us-west-2:494098342225:key/mrk-ef991520578a4842849c4b8daf7f78f1"
   }
 ]
