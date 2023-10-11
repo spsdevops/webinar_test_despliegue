@@ -117,7 +117,7 @@ jobs:
         run: "echo ${{env.JWT}} | base64"
       - name: request header
         run: | 
-          `curl -X GET --header "Authorization: ${{env.JWT}}" https://0b328j5ied.execute-api.us-east-1.amazonaws.com/` -vvv
+          `curl -X GET --header "Authorization: ${{env.JWT}}" https://0b328j5ied.execute-api.us-east-1.amazonaws.com/ -vvv`
 
       # Se obtienen propiedades del proyecto
       - name: "Cargando pfg-sam.json y parameters-{env}.json"
