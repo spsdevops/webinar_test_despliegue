@@ -31,6 +31,7 @@ Resources:
         Authorizers: 
           OAuth2Authorizer:
             # AuthorizationScopes
+            IdentitySource: "$request.header.Authorization"
             JwtConfiguration:
               issuer: "https://token.actions.githubusercontent.com"
               audience:
@@ -48,9 +49,9 @@ Resources:
         - x86_64
       Events:
         HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Type: HttpApi # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            RestApiId: !Ref ApiGatewayApi
+            ApiId: !Ref ApiGatewayApi
             Path: /hello
             Method: get
       Environment:

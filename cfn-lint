@@ -1,0 +1,18 @@
+2023-10-12T10:32:01,720 Created temporary directory: C:\Users\Josue Cruz\AppData\Local\Temp\pip-ephem-wheel-cache-d7ez2bij
+2023-10-12T10:32:01,722 Created temporary directory: C:\Users\Josue Cruz\AppData\Local\Temp\pip-req-tracker-mm1vb0mp
+2023-10-12T10:32:01,722 Created requirements tracker 'C:\\Users\\Josue Cruz\\AppData\\Local\\Temp\\pip-req-tracker-mm1vb0mp'
+2023-10-12T10:32:01,722 Created temporary directory: C:\Users\Josue Cruz\AppData\Local\Temp\pip-install-mz6j14df
+2023-10-12T10:32:01,722 Cleaning up...
+2023-10-12T10:32:01,723 Removed build tracker 'C:\\Users\\Josue Cruz\\AppData\\Local\\Temp\\pip-req-tracker-mm1vb0mp'
+2023-10-12T10:32:01,723 ERROR: You must give at least one requirement to install (see "pip help install")
+2023-10-12T10:32:01,724 Exception information:
+2023-10-12T10:32:01,724 Traceback (most recent call last):
+2023-10-12T10:32:01,724   File "c:\users\josue cruz\.pyenv\pyenv-win\versions\3.8.0\lib\site-packages\pip\_internal\cli\base_command.py", line 188, in main
+2023-10-12T10:32:01,724     status = self.run(options, args)
+2023-10-12T10:32:01,724   File "c:\users\josue cruz\.pyenv\pyenv-win\versions\3.8.0\lib\site-packages\pip\_internal\commands\install.py", line 317, in run
+2023-10-12T10:32:01,724     self.populate_requirement_set(
+2023-10-12T10:32:01,724   File "c:\users\josue cruz\.pyenv\pyenv-win\versions\3.8.0\lib\site-packages\pip\_internal\cli\base_command.py", line 313, in populate_requirement_set
+2023-10-12T10:32:01,724     raise CommandError(
+2023-10-12T10:32:01,724 pip._internal.exceptions.CommandError: You must give at least one requirement to install (see "pip help install")
+2023-10-12T10:32:01,753 WARNING: You are using pip version 19.2.3, however version 23.2.1 is available.
+2023-10-12T10:32:01,753 You should consider upgrading via the 'python -m pip install --upgrade pip' command.
