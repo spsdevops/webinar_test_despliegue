@@ -36,6 +36,7 @@ Resources:
               issuer: "https://token.actions.githubusercontent.com"
               audience:
                 - "cicd.sps"
+        DefaultAuthorizer: OAuth2Authorizer
       StageName: !Ref EnvName
       #Name: sps-apigateway
 
