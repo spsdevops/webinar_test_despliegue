@@ -25,8 +25,16 @@ Globals:
 
 Resources:
   ApiGatewayApi:
-    Type: AWS::Serverless::Api
+    Type: AWS::Serverless::HttpApi
     Properties:
+      Auth:
+        Authorizers: 
+          OAuth2Authorizer:
+            # AuthorizationScopes
+            JwtConfiguration:
+              issuer: "https://token.actions.githubusercontent.com"
+              audience:
+                - "cicd.sps"
       StageName: !Ref EnvName
       Name: sps-apigateway
 
