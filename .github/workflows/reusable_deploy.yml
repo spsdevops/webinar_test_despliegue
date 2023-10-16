@@ -105,9 +105,10 @@ jobs:
         with:
           python-version: '3.8'
 
-      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/setup-sam@v2
         with:
-          version: 1.37.0
+           use-installer: true
+        #  version: 1.37.0
       - name: get oidc token
         uses: tremolosecurity/action-generate-oidc-jwt@v1.0
         with:
