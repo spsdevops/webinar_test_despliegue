@@ -85,6 +85,6 @@ Outputs:
   HttpApiId:
     Description: Api id of HttpApi
     Value:
-      Ref: HttpApi
+      Ref: HttpApiGatewayApi
 
       
