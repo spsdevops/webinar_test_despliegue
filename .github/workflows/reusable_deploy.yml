@@ -108,7 +108,7 @@ jobs:
       - uses: aws-actions/setup-sam@v2
         with:
            use-installer: true
-        #  version: 1.37.0
+        #  version: 1.37.0      
       - name: get oidc token
         uses: tremolosecurity/action-generate-oidc-jwt@v1.0
         with:
@@ -239,6 +239,15 @@ jobs:
           if [[ ${{inputs.sufijo_ambiente}} = "false" ]]; then SUFIJO=""; fi
           echo "fullStackNameDR=$STACK_NAME$SUFIJO" >> $GITHUB_ENV
           echo "${{env.fullStackName}}"
+
+      - name: get CloudFormation Output
+        id: httpapiurl-output
+        run: |
+          stack_name="${{env.fullStackName}}"
+          output_key="HttpApiUrl"
+          OUTPUT_VALUE=$(aws cloudformation describe-stacks --stack-name $stack_name --query "Stacks[0].Outputs[?OutputKey=='$output_key'].OutputValue" --output text)
+          echo "output_value={$OUTPUT_VALUE}" >> $GITHUB_ENV
+          echo $OUTPUT_VALUE
 
       - if: ${{ inputs.stack != '' }}
         name: "Formar nombre de stack con input (stack)"
