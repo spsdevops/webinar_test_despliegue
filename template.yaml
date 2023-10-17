@@ -46,7 +46,7 @@ Resources:
     Properties:
       CodeUri: functions/autorizacion/
       Handler: main.lambda_handler
-      Runtime: python3.11
+      Runtime: python3.9
       Architectures:
         - x86_64
       Environment:
