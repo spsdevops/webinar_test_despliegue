@@ -28,22 +28,35 @@ Resources:
     Type: AWS::Serverless::HttpApi
     Properties:
       Auth:
-        Authorizers: 
-          OAuth2Authorizer:
-            # AuthorizationScopes
-            IdentitySource: "$request.header.Authorization"
-            JwtConfiguration:
-              issuer: "https://token.actions.githubusercontent.com"
-              audience:
-                - "cicd.sps"
+        Authorizers:
+          MyLambdaAuthorizer:
+            AuthorizerPayloadFormatVersion: 2.0
+            FunctionArn:
+              Fn::GetAtt:
+                - MyAuthFunction
+                - Arn
+            EnableFunctionDefaultPermissions: True
+            EnableSimpleResponses: True
         DefaultAuthorizer: OAuth2Authorizer
       StageName: !Ref EnvName
       Name: sps-apigateway
 
+  AuthFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: functions/autorizacion/
+      Handler: main.lambda_handler
+      Runtime: python3.8
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          TABLA_EJEMPLO: !Sub sps-tabla-ejemplo-${DBEnvName}
+
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: hello_world/
+      CodeUri: functions/hello_world/
       Handler: gatito.lambda_handler
       Runtime: python3.8
       Architectures:
