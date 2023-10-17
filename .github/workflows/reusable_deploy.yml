@@ -249,6 +249,10 @@ jobs:
           echo "output_value={$OUTPUT_VALUE}" >> $GITHUB_ENV
           echo $OUTPUT_VALUE
 
+      - name: request HttpApiUrl
+        run: | 
+          curl GET --header "Authorization: ${{env.JWT}}" ${{env.output_value}}/hello
+
       - if: ${{ inputs.stack != '' }}
         name: "Formar nombre de stack con input (stack)"
         run: |
