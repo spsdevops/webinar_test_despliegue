@@ -29,15 +29,15 @@ Resources:
     Properties:
       Auth:
         Authorizers:
-          MyLambdaAuthorizer:
+          MyLambdaAuthorizer: 
             AuthorizerPayloadFormatVersion: 2.0
             FunctionArn:
               Fn::GetAtt:
-                - MyAuthFunction
+                - AuthFunction
                 - Arn
             EnableFunctionDefaultPermissions: True
             EnableSimpleResponses: True
-        DefaultAuthorizer: OAuth2Authorizer
+        DefaultAuthorizer: MyLambdaAuthorizer
       StageName: !Ref EnvName
       Name: sps-apigateway
 
@@ -46,7 +46,7 @@ Resources:
     Properties:
       CodeUri: functions/autorizacion/
       Handler: main.lambda_handler
-      Runtime: python3.8
+      Runtime: python3.11
       Architectures:
         - x86_64
       Environment:
