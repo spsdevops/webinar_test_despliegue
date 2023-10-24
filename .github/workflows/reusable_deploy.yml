@@ -240,18 +240,7 @@ jobs:
           echo "fullStackNameDR=$STACK_NAME$SUFIJO" >> $GITHUB_ENV
           echo "${{env.fullStackName}}"
 
-      - name: get CloudFormation Output
-        id: httpapiurl-output
-        run: |
-          stack_name="${{env.fullStackName}}"
-          output_key="HttpApiUrl"
-          OUTPUT_VALUE=$(aws cloudformation describe-stacks --stack-name $stack_name --query "Stacks[0].Outputs[?OutputKey=='$output_key'].OutputValue" --output text)
-          echo "output_value={$OUTPUT_VALUE}" >> $GITHUB_ENV
-          echo $OUTPUT_VALUE
-
-      - name: request HttpApiUrl
-        run: | 
-          curl GET --header "Authorization: ${{env.JWT}}" ${{env.output_value}}/hello
+      
 
       - if: ${{ inputs.stack != '' }}
         name: "Formar nombre de stack con input (stack)"
@@ -366,7 +355,19 @@ jobs:
           --region ${{inputs.region_dr}} \
           --resolve-image-repos \
           --parameter-overrides EnvName=${{env.samEnv}}-dr DBEnvName=${{env.samEnv}} $SAM_PARAMETERS
+      
+      - name: get CloudFormation Output
+        id: httpapiurl-output
+        run: |
+          stack_name="${{env.fullStackName}}"
+          output_key="HttpApiUrl"
+          OUTPUT_VALUE=$(aws cloudformation describe-stacks --stack-name $stack_name --query "Stacks[0].Outputs[?OutputKey=='$output_key'].OutputValue" --output text)
+          echo "output_value={$OUTPUT_VALUE}" >> $GITHUB_ENV
+          echo $OUTPUT_VALUE
 
+      - name: request HttpApiUrl
+        run: | 
+          curl GET --header "Authorization: ${{env.JWT}}" ${{env.output_value}}/hello
       
       # Scripts Posteriores al despliegue
       - if: ${{ inputs.post_script != '' }}
