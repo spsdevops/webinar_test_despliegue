@@ -42,21 +42,28 @@ def lambda_handler(event, context):
   #print(header_dict)
   
   llave_publica = ''
-  
+
+
   for objeto in JWKS_JSON:
     if objeto.get('kid') == kid:
       llave_publica = objeto
-      break
+      hmac_key = llave_publica
+      print(hmac_key)
+      key = jwk.construct(hmac_key)
+      return {"isAuthorized": key.verify(f"{header}.{payload}".encode("utf-8"), base64url_decode(firma.encode("utf-8")))}
     else:
-      print("no coincide nada")
+      print(f"no coincide: {objeto}")
+  
+  return {"isAuthorized": False}
       
-  hmac_key = llave_publica
+      
+      
+  
   #import base64 f
   #base64_bytes = base64_message.encode('ascii')
   #message_bytes = base64.b64decode(base64_bytes)
   #message = message_bytes.decode('ascii')
-  print(hmac_key)
-  key = jwk.construct(hmac_key)
+  
   #decoded_sig = base64url_decode(encoded_sig)
   
-  return print(key.verify(f"{header}.{payload}".encode("utf-8"), base64url_decode(firma.encode("utf-8"))))
+  
