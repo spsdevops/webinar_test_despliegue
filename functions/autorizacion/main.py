@@ -11,8 +11,8 @@ def lambda_handler(event, context):
   print(event)
   print("\n")
   print(context)
-  token_event = json.loads(event)
-  token_jwt = token_event['headers']['authorization']
+  # token_event = json.loads(event)
+  token_jwt = event['headers']['authorization']
   # Endpoints OIDC Configuración
   openid_configuration = "https://" + openid_domain + "/.well-known/openid-configuration"
   
